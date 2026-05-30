@@ -1,4 +1,3 @@
-```markdown
 # Smart AutoComplete System
 
 A smart **AutoComplete System** designed to provide fast and intelligent query suggestions based on user input.
