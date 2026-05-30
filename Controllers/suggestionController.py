@@ -6,6 +6,11 @@ from model_loader import bigram_count,trigram_count,vocab
 trie=TrieNode()
 loaded_prefix=set()
 
+def reset_trie():
+    global trie, loaded_prefixes
+    trie = TrieNode()
+    loaded_prefixes = set()
+
 def load_prefix_into_trie(prefix):
 
     if prefix in loaded_prefix:
@@ -29,6 +34,7 @@ def get_suggestions(curr_word,prev_word)-> dict:
     prev_word=prev_word.strip().lower()
 
     if not curr_word:
+        reset_trie()
         suggestions=suggest_next_words(
             prev_word=prev_word or "<s>",
             n_gram_count=bigram_count,
@@ -39,4 +45,4 @@ def get_suggestions(curr_word,prev_word)-> dict:
         return {"suggestions": suggestions}
     load_prefix_into_trie(curr_word)
     suggestions=trie.starts_with(curr_word)
-    return {"suggestions": suggestions}
+    return {"suggestions": suggestions[:10]}
